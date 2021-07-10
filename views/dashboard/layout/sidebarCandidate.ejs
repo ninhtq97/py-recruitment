@@ -1,0 +1,24 @@
+<nav id="sidebar" class="">
+    <ul class="list-unstyled components text-secondary">
+        <li>
+            <a href="#" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+        </li>
+        <li>
+            <a href="/dashboard/candidate/update-profile" class="nav-link"><i class="fas fa-user-edit"></i> Cập nhật hồ sơ</a>
+        </li>
+        <li>
+            <a href="/auth/logout" class="nav-link"><i class="fas fa-share-square"></i>Đăng Xuất</a>
+        </li>
+    </ul>
+</nav>
+
+<script type="text/javascript">
+    const currentLocation = location.href;
+    const menuItem = document.querySelectorAll('a');
+    const menuLength = menuItem.length;
+    for (let i = 0; i < menuLength; i++) {
+        if (menuItem[i].href === currentLocation) {
+            menuItem[i].className = 'nav-link active';
+        }
+    }
+</script>

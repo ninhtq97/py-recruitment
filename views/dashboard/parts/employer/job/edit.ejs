@@ -1,0 +1,217 @@
+<% layout('dashboard/masterEmployer') -%>
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header" style="
+    color: white">Sửa công việc</div>
+    <div class="card-body">
+      <form method="POST" enctype='multipart/form-data'>
+        <div class="form-group">
+          <label for="name">Tên*</label>
+          <input type="text" name="name" class="form-control" value="<%=detail.name%>" required>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="careerId" style="margin-top: 5px;">Ngành nghề*</label>
+            <select class="selectpicker" multiple data-live-search="true" id="careerId" name="careerId">
+              <% for (const item of career) { %>
+                <option value="<%= item.id %>" <%= item.check === true ? "selected" : "" %>><%= item.name %></option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="locationId" style="margin-top: 5px;">Nơi làm việc*</label>
+            <select class="selectpicker" multiple data-live-search="true" id="locationId" name="locationId">
+              <% for (const item of location) { %>
+                <option value="<%= item.id %>" <%= item.check === true ? "selected" : ""; %>><%= item.name %></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="address">Địa chỉ làm việc*</label>
+          <input type="text" class="form-control" name="address" value="<%= getEmployer.address%>" disabled>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="quantity">Số lượng cần tuyển*</label>
+            <input type="text" name="quantity" class="form-control" value="<%=detail.quantity%>" required>
+          </div>
+          <div class="form-group col">
+            <label for="position">Cấp bậc*</label>
+            <input type="text" name="position" class="form-control" value="<%=detail.position%>" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="workFormat">Loại hình làm việc*</label>
+            <input type="text" name="workFormat" class="form-control" value="<%=detail.workFormat%>" required>
+          </div>
+          <div class="form-group col">
+            <label for="gender" class="form-control-label">Giới tính*</label>
+            <select class="form-control" name="gender" id="gender">
+              <% if (detail.gender == 3) { %>
+                <option value="3" selected>Không yêu cầu</option>
+                <option value="2">Nữ</option>
+                <option value="1">Nam</option>
+              <% } %>
+              <% if (detail.gender == 2) { %>
+                <option value="3">Không yêu cầu</option>
+                <option value="2" selected>Nữ</option>
+                <option value="1">Nam</option>
+              <% } %>
+              <% if (detail.gender == 1) { %>
+                <option value="3">Không yêu cầu</option>
+                <option value="2">Nữ</option>
+                <option value="1" selected>Nam</option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="experience">Kinh nghiệm*</label>
+            <input type="text" name="experience" class="form-control" value="<%=detail.experience%>" required>
+          </div>
+          <div class="form-group col">
+            <label for="salary">Lương*</label>
+            <input type="text" name="salary" class="form-control" value="<%=detail.salary%>" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="expirationDate">Hạn chót nộp hồ sơ*</label>
+            <input type="date" name="expirationDate" class="form-control" value="<%= moment(detail.expirationDate).format('YYYY-MM-DD'); %>" required>
+          </div>
+          <div class="form-group col">
+            <label for="companyName">Tên người nhận hồ sơ <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" value="<%= getEmployer.companyName %>" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col">
+            <label for="email">Email nhận hồ sơ*</label>
+            <input type="email" class="form-control" value="<%= user.email %>" disabled>
+          </div>
+          <div class="form-group col">
+            <label for="phone">Điện thoại*</label>
+            <input type="text" class="form-control" value="<%= getEmployer.phone %>" disabled>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="describe">Mô tả công việc*</label>
+          <textarea type="text" name="describe" id="description" class="form-control" required><%=detail.describe%></textarea>
+        </div>
+        <div class="form-group">
+          <label for="requestJob">Yêu cầu ứng viên*</label>
+          <textarea type="text" name="requestJob" id="requestJob" class="form-control" required><%=detail.requestJob%></textarea>
+        </div>
+        <div class="form-group">
+          <label for="benefitsEnjoyed">Quyền lợi ứng viên*</label>
+          <textarea type="text" name="benefitsEnjoyed" id="benefitsEnjoyed" class="form-control" required><%=detail.benefitsEnjoyed%></textarea>
+        </div>
+        <div class="row" style="justify-content: center; margin-top: 2em;">
+            <button id="update" type="submit" class="btn btn-primary mb-2" style="margin-right: 1em;">Lưu</button>
+            <a href="/dashboard/employer/jobs"><button type="button" class="btn btn-danger mb-2">Thoát</button></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#update").click(function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('name', $('input[name=name]').val());
+    formData.append('careerId', $('select[name=careerId]').val());
+    formData.append('locationId', $('select[name=locationId]').val());
+    formData.append('quantity', $('input[name=quantity]').val());
+    formData.append('position', $('input[name=position]').val());
+    formData.append('workFormat', $('input[name=workFormat]').val());
+    formData.append('gender', $('select[name=gender]').val());
+    formData.append('experience', $('input[name=experience]').val());
+    formData.append('salary', $('input[name=salary]').val());
+    formData.append('expirationDate', $('input[name=expirationDate]').val());
+    formData.append('describe', CKEDITOR.instances['description'].getData());
+    formData.append('requestJob', CKEDITOR.instances['requestJob'].getData());
+    formData.append('benefitsEnjoyed', CKEDITOR.instances['benefitsEnjoyed'].getData());
+
+    let change = true;
+    if(
+      !formData.get('name') ||
+      !formData.get('careerId') ||
+      !formData.get('locationId') ||
+      !formData.get('quantity') ||
+      !formData.get('position') ||
+      !formData.get('workFormat') ||
+      !formData.get('gender') ||
+      !formData.get('experience') ||
+      !formData.get('salary') ||
+      !formData.get('expirationDate') ||
+      !formData.get('describe') ||
+      !formData.get('requestJob') ||
+      !formData.get('benefitsEnjoyed')
+      
+    ){
+      change = false;
+      swal({
+            type: 'error',
+            title: 'Có lỗi...',
+            text: 'Vui lòng điền đầy đủ thông tin !!!',
+            footer: ''
+          })
+    } if(change){
+      $.ajax({
+          url: '/dashboard/employer/jobs/<%=detail.id%>',
+          type: 'POST',
+          data: formData,
+          success: function (data) {
+            if (data) {
+              if(data == true){
+                swal("Thành công!", "", "success").then(function() {
+                  location.href = "/dashboard/employer/jobs/<%=detail.id%>";
+              });
+              }
+              else{
+                swal({
+                type: 'error',
+                title: 'Có lỗi...',
+                text: data,
+                footer: ''
+              })
+              }
+            
+            }
+            else {
+              swal({
+                type: 'error',
+                title: '',
+                text: 'Có lỗi xảy ra! Vui lòng thử lại',
+                footer: ''
+              })
+            }
+          },
+          error: (request, status, error) => {
+            swal(request.responseJSON.message, "", "error");
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+      });
+    }
+  });
+
+  $(function () {
+    $('input[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+
+  $(function () {
+    $('textarea[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+</script>

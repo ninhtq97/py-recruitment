@@ -1,0 +1,295 @@
+<% layout('dashboard/masterCandidate') -%>
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header" style="
+    color: white">Cập nhật hồ sơ</div>
+    <div class="card-body">
+      <form method="POST" enctype='multipart/form-data'>
+        <h4><strong>Cập nhật ảnh đại diện</strong></h4>
+        <hr>
+        <div class="row">
+          <!-- Ảnh -->
+          <div class="form-group col-lg-6">
+            <label for="image"><span style="color: red">* </span><strong>Ảnh đại diện</strong></label>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <span class="btn btn-default btn-file" style="position: relative; overflow: hidden;">
+                  <i class="fas fa-upload"></i>
+                  <input value="<%=detail.image%>" name="image" type="file" id="image" style="
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                    font-size: 100px;
+                    text-align: right;
+                    filter: alpha(opacity=0);
+                    opacity: 0;
+                    outline: none;
+                    background: white;
+                    cursor: inherit;
+                    display: block;
+                  ">
+                </span>
+              </span>
+              <!-- <input type="text" class="form-control" readonly> -->
+            </div>
+            <img id='img-upload' src="/<%=detail.image%>" value="<%=detail.image%>" style="width: 30%;" />
+          </div>
+        </div>
+        <br>
+        <br>
+        <h4><strong>Thông tin cá nhân</strong></h4>
+        <hr>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="profileCode"><span style="color: red">* </span><strong>Mã hồ sơ</strong></label>
+            <input type="text" name="profileCode" class="form-control" value="<%=detail.profileCode%>" disabled>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="email"><span style="color: red">* </span><strong>Email</strong></label>
+            <input type="text" name="email" class="form-control" value="<%=detail.user.email%>" disabled>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="name"><span style="color: red">* </span><strong>Họ tên</strong></label>
+            <input type="text" name="name" class="form-control" value="<%=detail.name%>" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="phone"><span style="color: red">* </span><strong>Số điện thoại</strong></label>
+            <input type="text" name="phone" class="form-control" value="<%=detail.phone%>" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="birthday"><span style="color: red">* </span><strong>Ngày sinh%></strong></label>
+            <input type="date" name="birthday" class="form-control" value="<%= moment(detail.birthday).format('YYYY-MM-DD') %>" required>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="address"><span style="color: red">* </span><strong>Địa chỉ</strong></label>
+            <input type="text" name="address" class="form-control" value="<%=detail.address%>" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="gender" class="form-control-label"><span style="color: red">* </span><strong>Giới tính:</strong></label>
+            <select class="selectpicker" name="gender" id="gender">
+              <% if (detail.gender == 1) { %>
+                <option value="1" selected>Nam</option>
+                <option value="2">Nữ</option>
+              <% } else { %>
+                <option value="1">Nam</option>
+                <option value="2" selected>Nữ</option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="maritalStatus" class="form-control-label"><span style="color: red">* </span><strong>Tình trạng hôn nhân:</strong></label>
+            <select class="selectpicker" name="maritalStatus" id="maritalStatus">
+              <% if (detail.maritalStatus == 1) { %>
+                <option value="1" selected>Độc thân</option>
+                <option value="2">Đã kết hôn</option>
+              <% } else { %>
+                <option value="1">Độc thân</option>
+                <option value="2" selected>Đã kết hôn</option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <br>
+        <br>
+        <h4><strong>Thông tin hồ sơ</strong></h4>
+        <hr>
+        <div class="form-group">
+          <label for="position"><span style="color: red">* </span><strong>Cấp bậc mong muốn</strong></label>
+          <input type="text" name="position" class="form-control" style="width: 50%;" value="<%= detail.position %>" required>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-4">
+            <label for="salary"><span style="color: red">* </span><strong>Mức lương mong muốn</strong></label>
+            <input type="text" name="salary" class="form-control" value="<%= detail.salary %>" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="experience"><span style="color: red">* </span><strong>Số năm kinh nghiệm</strong></label>
+            <input type="text" name="experience" class="form-control" value="<%= detail.experience %>" required>
+          </div>
+          <div class="form-group col-md-4">
+            <label for="level"><span style="color: red">* </span><strong>Trình độ học vấn</strong></label>
+            <input type="text" name="level" class="form-control" value="<%= detail.level %>" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-group col-md-6">
+            <label for="careerId" style="margin-top: 5px;"><span style="color: red">* </span><strong>Ngành nghề: </strong></label>
+            <select class="selectpicker" multiple data-live-search="true" id="careerId" name="careerId">
+              <% for (const item of career) { %>
+                  <option value="<%= item.id %>" <%= item.check === true ? "selected" : "" %>><%= item.name %></option>
+              <% } %>
+            </select>
+          </div>
+          <div class="form-group col-md-6">
+            <label for="locationId" style="margin-top: 5px;"><span style="color: red">* </span><strong>Địa điểm: </strong></label>
+            <select class="selectpicker" multiple data-live-search="true" id="locationId" name="locationId">
+              <% for (const item of location) { %>
+                <option value="<%= item.id %>" <%= item.check === true ? "selected" : ""; %>><%= item.name %></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="careerGoals"><span style="color: red">* </span><strong>Mục tiêu nghề nghiệp</strong></label>
+          <textarea type="text" name="careerGoals" id="careerGoals" class="form-control" required><%= detail.careerGoals %></textarea>
+        </div>
+        <div class="form-group">
+          <label for="skill"><span style="color: red">* </span><strong>Kĩ năng bản thân</strong></label>
+          <textarea type="text" name="skill" id="skill" class="form-control" required><%= detail.skill %></textarea>
+        </div>
+        <div class="row" style="justify-content: center; margin-top: 2em;">
+          <button id="update" type="submit" class="btn btn-primary mb-2" style="margin-right: 1em;">Cập nhật</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#update").click(function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('image', '<%=detail.image%>');
+
+    if($('input[type=file]')[0].files[0]) {
+      formData.set('image', $('input[type=file]')[0].files[0]);
+    }
+
+    formData.append('name', $('input[name=name]').val());
+    formData.append('phone', $('input[name=phone]').val());
+    formData.append('birthday', $('input[name=birthday]').val());
+    formData.append('address', $('input[name=address]').val());
+    formData.append('gender', $('select[name=gender]').val());
+    formData.append('maritalStatus', $('select[name=maritalStatus]').val());
+    formData.append('career', $('input[name=career]').val());
+    formData.append('position', $('input[name=position]').val());
+    formData.append('salary', $('input[name=salary]').val());
+    formData.append('experience', $('input[name=experience]').val());
+    formData.append('level', $('input[name=level]').val());
+    formData.append('careerId', $('select[name=careerId]').val());
+    formData.append('locationId', $('select[name=locationId]').val());
+    formData.append('careerGoals', CKEDITOR.instances['careerGoals'].getData());
+    formData.append('skill', CKEDITOR.instances['skill'].getData());
+    
+    let change = true;
+    if(
+      !formData.get('name') ||
+      !formData.get('phone') ||
+      !formData.get('birthday') ||
+      !formData.get('address') ||
+      !formData.get('gender') ||
+      !formData.get('maritalStatus') ||
+      !formData.get('career') ||
+      !formData.get('position') ||
+      !formData.get('salary') ||
+      !formData.get('experience') ||
+      !formData.get('level') ||
+      !formData.get('careerId') ||
+      !formData.get('locationId') ||
+      !formData.get('careerGoals') ||
+      !formData.get('skill')
+    ){
+      change = false;
+      swal({
+            type: 'error',
+            title: 'Có lỗi...',
+            text: 'Vui lòng điền đầy đủ thông tin !!!',
+            footer: ''
+          })
+    } if(change){
+      $.ajax({
+          url: '/dashboard/candidate/update-profile',
+          type: 'POST',
+          data: formData,
+          success: function (data) {
+            if (data) {
+              if(data == true){
+                swal("Thành công!", "", "success").then(function() {
+                  location.href = "/dashboard/candidate/update-profile";
+              });
+              }
+              else{
+                swal({
+                type: 'error',
+                title: 'Có lỗi...',
+                text: data,
+                footer: ''
+              })
+              }
+            
+            }
+            else {
+              swal({
+                type: 'error',
+                title: '',
+                text: 'Có lỗi xảy ra! Vui lòng thử lại',
+                footer: ''
+              })
+            }
+          },
+          error: (request, status, error) => {
+            swal(request.responseJSON.message, "", "error");
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+      });
+    }
+  });
+
+  $(function () {
+    $('input[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+
+  $(function () {
+    $('textarea[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+  
+  $(document).ready( function() {
+    	$(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+		    
+		    var input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) return true;
+		    }
+	    
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        var reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#image").change(function(){
+		    readURL(this);
+		}); 	
+	});
+</script>

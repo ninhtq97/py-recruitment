@@ -1,0 +1,134 @@
+<% layout('dashboard/masterAdmin') -%>
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header" style="
+    color: white">Thêm mới danh mục</div>
+    <div class="card-body">
+      <form method="POST" enctype='multipart/form-data'>
+        <div class="form-group">
+          <label for="email">Tài khoản email*</label>
+          <input type="email" name="email" class="form-control"  style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="password">Mật khẩu*</label>
+          <input type="password" name="password" class="form-control"  style="width: 50%;" required>
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="companyName">Tên Công ty*</label>
+          <input type="text" name="companyName" class="form-control"  style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="code">Mã số thuế*</label>
+          <input type="text" name="code" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="dateRange">Ngày cấp*</label>
+          <input type="date" name="dateRange" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="issuedBy">Nơi cấp*</label>
+          <input type="text" name="issuedBy" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Địa chỉ liên hệ*</label>
+          <input type="text" name="address" class="form-control" style="width: 50%;"required>
+        </div>
+        <div class="form-group">
+          <label for="phone">SĐT liên hệ*</label>
+          <input type="text" name="phone" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="row" style="justify-content: center; margin-top: 2em;">
+            <button id="create" type="submit" class="btn btn-primary mb-2" style="margin-right: 1em;">Lưu</button>
+            <a href="/dashboard/admin/employers"><button type="button" class="btn btn-danger mb-2">Thoát</button></a>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#create").click(function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('email', $('input[name=email]').val());
+    formData.append('password', $('input[name=password]').val());
+    formData.append('companyName', $('input[name=companyName]').val());
+    formData.append('code', $('input[name=code]').val());
+    formData.append('dateRange', $('input[name=dateRange]').val());
+    formData.append('issuedBy', $('input[name=issuedBy]').val());
+    formData.append('address', $('input[name=address]').val());
+    formData.append('phone', $('input[name=phone]').val());
+    
+    let change = true;
+    if(
+      !formData.get('email') ||
+      !formData.get('password') ||
+      !formData.get('companyName') ||
+      !formData.get('code') ||
+      !formData.get('dateRange') ||
+      !formData.get('issuedBy') ||
+      !formData.get('address') ||
+      !formData.get('phone')
+    ){
+      change = false;
+      swal({
+            type: 'error',
+            title: 'Có lỗi...',
+            text: 'Vui lòng điền đầy đủ thông tin !!!',
+            footer: ''
+          })
+    } if(change){
+      $.ajax({
+          url: '/dashboard/admin/employers/create',
+          type: 'POST',
+          data: formData,
+          success: function (data) {
+            if (data) {
+              if(data == true){
+                swal("Thành công!", "", "success").then(function() {
+                  location.href = "/dashboard/admin/employers";
+              });
+              }
+              else{
+                swal({
+                type: 'error',
+                title: 'Có lỗi...',
+                text: data,
+                footer: ''
+              })
+              }
+            
+            }
+            else {
+              swal({
+                type: 'error',
+                title: '',
+                text: 'Có lỗi xảy ra! Vui lòng thử lại',
+                footer: ''
+              })
+            }
+          },
+          error: (request, status, error) => {
+            swal(request.responseJSON.message, "", "error");
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+      });
+    }
+  });
+
+  $(function () {
+    $('input[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+
+  $(function () {
+    $('textarea[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+</script>

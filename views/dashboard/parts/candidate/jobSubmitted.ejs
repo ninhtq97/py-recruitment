@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="js no-touch csstransforms csstransforms3d svg mdl-js" lang="">
+
+  <head>
+    <meta charset="utf-8">
+    <title>Python Việt Nam</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/png" href="/favicon.ico">
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i,700,700i&amp;display=swap&amp;subset=vietnamese"
+      rel="stylesheet">
+    <link rel="stylesheet" href="/public/view/mekongwork/ungvien/styles/bundle.css">
+    <script type="text/javascript" async=""
+      src="https://www.gstatic.com/recaptcha/releases/sG0iO6gHcGdWJzjJjW9AY49S/recaptcha__vi.js" crossorigin="anonymous"
+      integrity="sha384-2pSj4GaCmaodIFcr27CrRNfoYD+gMtF1tZgi+nfgEbX5/H1Trp1xnyUTuaVfDCr/"></script>
+    <script>
+      URL_ROOT = '/';
+      URLNOW = '/candidates/dashboard/update-profile';
+      filesizeup = 10485760;
+    </script>
+    <script src="/public/view/mekongwork/ungvien/vendor/jquery/dist/jquery.js"></script>
+    <script src="/public/lib/public/js/functiondef5.js"></script>
+    <script src="/public/dashboard/ckeditor/ckeditor.js"></script>
+    <script type="text/javascript" charset="UTF-8"
+      src="https://www.google.com/recaptcha/api.js?onload=__rcb801448&amp;render=explicit&amp;hl=vi-VN"></script>
+    <style>
+      #_no-clickjacking-0 {
+        opacity: 1 !important;
+        overflow: visible !important
+      }
+    </style>
+    <style>
+      .grecaptcha-badge {
+        display: none !important;
+      }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/public/view/mekongwork/ungvien/vendor/dropzone/dropzone.css">
+    <link rel="stylesheet" type="text/css" href="/public/view/mekongwork/ungvien/hoso/css/capnhathoso.css">
+  </head>
+
+  <body>
+    <div class="modal bs-modal-sm middle-screen" id="modalNapTien" tabindex="-1" role="dialog" aria-hidden="true"
+      data-backdrop="static">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Nạp tiền tài khoản</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <p>Số tiền nạp</p>
+              <div class="my-input-group">
+                <i class="fal fa-money-check-edit-alt"></i>
+                <input type="text" id="soTienNap" class="form-control inputGia" placeholder="Nhập số tiền muốn nạp">
+              </div>
+            </div>
+            <div class="text-center">
+              <button class="btn btn-primary" id="btnNapTien" type="button">
+                Nạp tiền
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="modalViewDetails" class="modal fade" role="dialog" data-backdrop="static" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="lds-ellipsis" style="margin: 20px auto">
+            <div></div>
+            <div></div>
+            <div></div>
+            <div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="app layout-fixed-header">
+      <!-- sidebar panel -->
+      <div class="sidebar-panel offscreen-left">
+        <div class="brand">
+          <!-- logo -->
+          <div class="brand-logo">
+            <div class="imgLogoNtd" id="imgLogoNtd">
+              <img src="/<%=detail.image%>">
+              <div>
+                <i class="fas fa-camera"></i>
+              </div>
+              <input class="fileAvatar updateAvatar" type="file" name="image" id="image" value="<%=detail.image%>"
+                accept="image/x-png,image/gif,image/jpeg">
+            </div>
+            <div class="brand-name">
+              <%=detail.name%>
+            </div>
+          </div>
+          <!-- /logo -->
+        </div>
+        <!-- main navigation -->
+        <nav role="navigation" style="top: 200px" class="ps-container active open"
+          data-ps-id="aa5c704e-be69-2347-fa0a-5422e15a7a44">
+          <ul class="nav">
+            <li class="active">
+              <a href="/candidates/dashboard/update-profile">
+                <i class="fas fa-user-edit"></i>
+                <span>Cập nhật hồ sơ</span>
+              </a>
+            </li>
+            <li>
+              <a href="/candidates/dashboard/job-submitted">
+                <i class="fas fa-briefcase"></i>
+                <span>Việc làm đã nộp</span>
+              </a>
+            </li>
+            <li>
+              <a href="/auth/logout" class="btnLogout">
+                <i class="fas fa-sign-out"></i>
+                <span>Đăng xuất</span>
+              </a>
+            </li>
+          </ul>
+          <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;">
+            <div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div>
+          </div>
+          <div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;">
+            <div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div>
+          </div>
+        </nav>
+        <!-- /main navigation -->
+      </div>
+      <!-- /sidebar panel -->
+      <!-- content panel -->
+      <div class="main-panel">
+        <!-- top header -->
+        <header class="header navbar">
+          <div class="brand visible-xs">
+            <!-- toggle offscreen menu -->
+            <div class="toggle-offscreen">
+              <a href="#" class="hamburger-icon visible-xs" data-toggle="offscreen" data-move="ltr">
+                <span></span>
+                <span></span>
+                <span></span>
+              </a>
+            </div>
+            <!-- /toggle offscreen menu -->
+            <!-- logo -->
+            <!--                <div class="brand-logo">-->
+            <!--                    <img src="images/logo-dark.png" height="15" alt="">-->
+            <!--                </div>-->
+            <!-- /logo -->
+            <!-- /toggle chat sidebar small screen-->
+          </div>
+          <ul class="nav navbar-nav navbar-right">
+            <li class="menu-ntd">
+              <a href="/">
+                <i class="fal fa-home-alt"></i>
+                <br>
+                Trang chủ
+              </a>
+            </li>
+            <li class="menu-ntd">
+              <a href="/jobs">
+                <i class="fal fa-briefcase"></i>
+                <br>
+                Việc làm mới
+              </a>
+            </li>
+          </ul>
+        </header>
+        <!-- main area -->
+        <div class="main-content">
+          <div id="page_content">
+            <div class="panel mb20">
+              <div class="panel-heading border">
+                Danh sách hồ sơ đã nộp
+              </div>
+              <div class="panel-body">
+                <div class="card-body">
+                  <p class="card-title"></p>
+                  <form action="/candidates/dashboard/job-submitted" method="GET">
+                    <div class="form-row">
+                      <div class="form-group col-md-3">
+                        <input type="text" class="form-control" placeholder="Tên vị trí hoặc công ty..." name="name"
+                          value="<%= query.name %>" />
+                      </div>
+                      <div class="form-group col-md-2">
+                        <button type="submit" class="btn btn-primary">Tìm kiếm</button>
+                      </div>
+                    </div>
+                  </form>
+                  <table class="table table-hover" id="dataTables-example" width="100%">
+                    <thead>
+                      <tr>
+                        <th>STT</th>
+                        <th>Vị trí</th>
+                        <th>Công ty</th>
+                        <th>Thời hạn nộp</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <% data.forEach((item, index)=> { %>
+                        <tr>
+                          <th scope="row">
+                            <% if(!query.page || query.page==1) { %>
+                              <%= index + 1 %>
+                                <%}%>
+                                  <% if(query.page && query.page !=1) { %>
+                                    <%= (index + 0) + ((query.page * 10) - 9)%>
+                                      <%}%>
+                          </th>
+                          <td>
+                            <%= item.jobName %>
+                          </td>
+                          <td>
+                            <%= item.companyName %>
+                          </td>
+                          <td>
+                            <%= moment(item.expirationDate).format('DD/MM/YYYY') %>
+                          </td>
+                          <td>
+                            <a href="" class="btn btn-outline-danger btn-rounded delete" data-name="<%= item.id %>"><i
+                                class="fas fa-trash"></i></a>
+                          </td>
+                        </tr>
+                        <% }); %>
+                    </tbody>
+                  </table>
+                  <nav aria-label="Page navigation example">
+                    <% if (pages> 1) { %>
+                      <ul class="pagination justify-content-center">
+                        <% var i=(Number(current)> 10 ? Number(current) - 9 : 1) %>
+                          <% if (i !==1) { %>
+                            <li class="disabled"><a>...</a></li>
+                            <% } %>
+                              <% for (; i <=(Number(current) + 9) && i <=pages; i++) { %>
+                                <% if (i==current) { %>
+                                  <li class="active page-item"><a class="page-link">
+                                      <%= i %>
+                                    </a></li>
+                                  <% } else { %>
+                                    <li class="page-item"><a class="page-link"
+                                        href="/candidates/dashboard/job-submitted?page=<%= i %>&name=<%= query.name %>">
+                                        <%= i %>
+                                      </a></li>
+                                    <% } %>
+                                      <% if (i==Number(current) + 9 && i < pages) { %>
+                                        <li class="disabled"><a>...</a></li>
+                                        <% } %>
+                                          <% } %>
+                      </ul>
+                      <% } %>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- /main area -->
+        <!-- /content panel -->
+
+        <script src="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.js"></script>
+        <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/4.2.0/firebaseui.css">
+        <script type="text/javascript" src="/public/view/mekongwork/ungvien/vendor/dropzone/dropzone.js"></script>
+        <script>
+          sdtUser = '+84337067439';
+        </script>
+        <script src="/public/view/mekongwork/ungvien/hoso/js/capnhathoso.js"></script><!-- bottom footer -->
+        <!-- /bottom footer -->
+      </div>
+      <script src="/public/view/mekongwork/ungvien/vendor/bootstrap/dist/js/bootstrap.js"></script>
+      <script type="text/javascript" src="/public/view/mekongwork/ungvien/scripts/bundle.js"></script>
+
+      <div id="_no-clickjacking-0"
+        style="visibility: hidden; position: absolute; width: 100%; top: -10000px; left: 0px; right: 0px; transition: visibility 0s linear 0.3s, opacity 0.3s linear 0s; opacity: 1; overflow: visible;">
+        <div
+          style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.5;">
+        </div>
+        <div
+          style="margin: 0px auto; top: 0px; left: 0px; right: 0px; position: absolute; border: 1px solid rgb(204, 204, 204); z-index: 2000000000; background-color: rgb(255, 255, 255); overflow: hidden;">
+          <iframe title="thử thách xác thực recaptcha"
+            src="https://www.google.com/recaptcha/api2/bframe?hl=vi&amp;v=sG0iO6gHcGdWJzjJjW9AY49S&amp;k=6LcMZR0UAAAAALgPMcgHwga7gY5p8QMg1Hj-bmUv&amp;cb=clru2fyopumg"
+            name="c-pixnxpopiph0" frameborder="0" scrolling="no"
+            sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox"
+            style="width: 100%; height: 100%;"></iframe>
+        </div>
+      </div>
+
+      <script>
+        $(function () {
+          $('input[type="text"]').change(function () {
+            this.value = $.trim(this.value);
+          });
+        });
+      </script>
+
+      <script type="text/javascript">
+        $(function () {
+          $('.delete').click(function (e) {
+            e.preventDefault()
+            const jobSubmittedId = $(this).data('name');
+            $.ajax({
+              type: 'POST',
+              url: `/candidates/dashboard/job-submitted/delete/${jobSubmittedId}`,
+              success: function (data) {
+                if (data) {
+                  swal("Thành công!", "", "success").then(function () {
+                    location.href = "/candidates/dashboard/job-submitted";
+                  });
+                }
+                else {
+                  swal({
+                    type: 'error',
+                    title: '',
+                    text: 'Có lỗi xảy ra! Vui lòng thử lại',
+                    footer: ''
+                  })
+                }
+              },
+              error: (request, status, error) => {
+                swal(request.responseJSON.message, "", "error");
+              },
+            });
+          });
+        });
+      </script>
+  </body>
+
+</html>

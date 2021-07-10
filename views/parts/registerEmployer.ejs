@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="ZoxKtL6KJbDMbn9aila9to32ANKEbskzgrZkDaxU">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Python Việt Nam</title>
+    <link rel="stylesheet" href="/topcv/v2/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/topcv/v2/css/jquery-ui.min.css?v=1.0.1">
+    <link rel="stylesheet" href="/topcv/v2/css/app.css?v=1.2.3">
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <script src="/topcv/v2/js/jquery-1.11.2.min.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/topcv/v3/images/logo.png"></a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/">Trang chủ</a></li>
+              <li><a href="/auth/employer-login">Đăng nhập</a></li>
+              <li class="active"><a href="/auth/register/employer">Đăng ký</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div id="page-register" class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="alert alert-danger" style="display: none;"></div>
+          <form method="post" enctype="multipart/form-data">
+            <div id="personal-info" class="panel panel-default">
+              <div class="panel-heading">Đăng ký tài khoản Nhà tuyển dụng</div>
+              <div class="panel-body form-horizontal">
+                <div style="position: relative;">
+                  <h4 style="margin-bottom: 20px; text-transform: uppercase;">Thông tin Đăng nhập</h4>
+                  <div class="form-group"><label class="control-label col-md-3">Email đăng nhập: <span
+                        class="text-danger">*</span></label>
+                    <div class="col-md-9"><input type="email" name="emailRegister" placeholder="Email"
+                        class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group"><label class="control-label col-md-3">Mật khẩu: <span
+                        class="text-danger">*</span></label>
+                    <div class="col-md-9"><input type="password" name="passwordRegister"
+                        placeholder="Mật khẩu (từ 6 đến 25 ký tự)" class="form-control"></div>
+                  </div>
+                  <hr>
+                  <h4 style="margin-bottom: 20px; text-transform: uppercase;">Thông tin Công ty</h4>
+                  <div class="form-group"><label class="control-label col-md-3">Tên Công ty: <span
+                        class="text-danger">*</span></label>
+                    <div class="col-md-9"><input type="text" name="companyName" placeholder="Tên Công ty"
+                        class="form-control"></div>
+                  </div>
+                  <div class="form-group"><label class="control-label col-md-3">Mã số thuế: <span
+                        class="text-danger">*</span></label>
+                    <div class="col-md-9"><input type="number" name="code" placeholder="Mã số thuế"
+                        class="form-control blockCode"></div>
+                  </div>
+                  <div class="form-group"><label class="control-label col-md-3">Ngày cấp: <span
+                        class="text-danger">*</span></label>
+                    <div class="col-md-9"><input type="date" name="dateRange" placeholder="Ngày cấp"
+                        class="form-control"></div>
+                  </div>
+                  <div class="form-group"><label class="control-label col-md-3">Nơi cấp:</label>
+                    <div class="col-md-9"><input type="text" name="issuedBy" placeholder="Nơi cấp" class="form-control">
+                    </div>
+                  </div>
+                  <div class="form-group"><label class="control-label col-md-3">Địa chỉ liên hệ:</label>
+                    <div class="col-md-9"><input type="text" name="address" placeholder="Địa chỉ liên hệ"
+                        class="form-control"></div>
+                  </div>
+                  <div class="form-group"><label class="control-label col-md-3">Số điện thoại liên hệ:</label>
+                    <div class="col-md-9"><input type="text" name="phone" placeholder="Số điện thoại liên hệ"
+                        class="form-control"></div>
+                  </div>
+                </div>
+              </div>
+              <div class="panel-footer">
+                <div class="text-center"><button type="submit" id="registerEmployer" class="btn btn-primary">Đăng
+                    ký</button></div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script type="text/javascript">
+      document.querySelector(".blockCode").addEventListener("keypress", function (evt) {
+        if (evt.which != 8 && evt.which != 0 && evt.which < 48 || evt.which > 57) {
+          evt.preventDefault();
+        }
+      });
+
+      $("#registerEmployer").click(function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('email', $('input[name=emailRegister]').val());
+        formData.append('password', $('input[name=passwordRegister]').val());
+        formData.append('companyName', $('input[name=companyName]').val());
+        formData.append('code', $('input[name=code]').val());
+        formData.append('dateRange', $('input[name=dateRange]').val());
+        formData.append('issuedBy', $('input[name=issuedBy]').val());
+        formData.append('address', $('input[name=address]').val());
+        formData.append('phone', $('input[name=phone]').val());
+
+        let change = true;
+        if (
+          !formData.get('email') ||
+          !formData.get('password') ||
+          !formData.get('companyName') ||
+          !formData.get('code') ||
+          !formData.get('dateRange') ||
+          !formData.get('issuedBy') ||
+          !formData.get('address') ||
+          !formData.get('phone')
+        ) {
+          change = false;
+          swal({
+            type: 'error',
+            title: 'Có lỗi...',
+            text: 'Vui lòng điền đầy đủ thông tin !!!',
+            footer: ''
+          })
+        } if (change) {
+          $.ajax({
+            url: '/auth/register/employer',
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+              if (data == true) {
+                swal("Thành công!", "", "success").then(function () {
+                  location.href = "/";
+                });
+              }
+              else {
+                swal(data, "", "error").then(function () {
+                  location.href = "/auth/register/employer";
+                });
+              }
+            },
+            error: (request, status, error) => {
+              swal(request.responseJSON.message, "", "error");
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+          });
+        }
+      });
+    </script>
+  </body>
+
+</html>

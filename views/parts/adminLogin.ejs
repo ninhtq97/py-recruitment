@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Login</title>
+  <link href="../../public/vendor/bootstrap4/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../../public/css/auth.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+</head>
+<body>
+  <div class="wrapper">
+    <div class="auth-content">
+      <div class="card">
+        <div class="card-body text-center">
+          <div class="mb-4">
+          </div>
+          <h6 class="mb-4 text-muted">Sign in to your account</h6>
+          <form action="" method="POST">
+            <div class="form-group">
+              <input type="email" name="email" class="form-control" placeholder="Tài khoản" required>
+            </div>
+            <div class="form-group err">
+              <input type="password" name="password" class="form-control" placeholder="Mật khẩu" autocomplete="on" required>
+            </div>
+            <button class="btn btn-primary shadow-2 mb-4" id="login">Login</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../../public/vendor/jquery3/jquery.min.js"></script>
+  <script src="../../public/vendor/bootstrap4/js/bootstrap.min.js"></script>
+</body>
+</html>
+<script type="text/javascript">
+  $(function () {
+    $('#login').click(function (e) {
+      e.preventDefault()
+      const email = $('input[name=email]').val();
+      const password = $('input[name=password]').val();
+      const role = '<%= role %>';
+      let change = true;
+      if(!email || !password){
+        change = false;
+        swal('Vui lòng nhập đầy đủ', "", "error")
+      }
+      if(change){
+        const data = { email: email, password: password, role: role };
+      $.ajax({
+        type: 'POST',
+        data: data,
+        url: '/auth/admin-login',
+        success: function (data) {
+          if (data == true) {
+            location.href = '/dashboard/admin/employers'
+          }
+          else {
+            swal(data, "", "error").then(function() {
+                location.href = "/auth/admin-login";
+            });
+          }
+        },
+        error: (request, status, error) => {
+          swal(request.responseJSON.message, "", "error");
+        },
+      });
+      }
+    });
+  });
+</script>

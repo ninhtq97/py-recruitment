@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="ZoxKtL6KJbDMbn9aila9to32ANKEbskzgrZkDaxU">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Python Việt Nam</title>
+
+    <link rel="stylesheet" href="/topcv/fontawesome-5.12.0/css/all.min.css">
+    <link rel="stylesheet" href="/topcv/v2/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/topcv/v2/css/jquery-ui.min.css?v=1.0.1">
+    <link rel="stylesheet" href="/topcv/v2/css/app.css?v=1.2.3">
+  </head>
+
+  <body class="no-scroll">
+    </header>
+    <div id="view-candidate-root">
+      <div id="overlay-view-candidate" class="overlay-backdrop" style="display: block;">
+        <div class="overlay-wrapper">
+          <div class="row">
+            <div id="candidate-viewer-cv" style="height: 664px;">
+              <!DOCTYPE html>
+              <html lang="en">
+
+                <head>
+                  <meta charset="utf-8">
+                  <meta name="csrf-token" content="MZKneyw7yq5hPPOv0csoAMWb1zYwSboz7PSZw33R">
+                  <title>Python Việt Nam</title>
+                  <link rel="stylesheet" as="style" href="/topcv/v2/css/font-awesome.min69ea.css">
+                  <link rel="stylesheet" href="/topcv/v2/css/app.css?v=1.2.3">
+                  <link rel="stylesheet" href="https://www.topcv.vn/cv-new/css/cv-viewer.css?v=2.1.4">
+                  <link id="cv-scheme-css" rel="stylesheet"
+                    href="https://www.topcv.vn/packages/cvo/templates//onepage_impressive_2/colors/37474f.css?v=2.3.2">
+                </head>
+
+                <body id="cv-viewer">
+                  <div id="cv-layout-viewer">
+                    <div id="cvo-document-root">
+                      <div id="cvo-document" class="cvo-document">
+                        <div class="cvo-page">
+                          <div class="cvo-subpage">
+                            <div id="cvo-body">
+
+                              <div id="cvo-main">
+                                <div id="col-left">
+
+                                  <div id="group-top-left">
+
+                                    <div id="cvo-profile" class="cvo-block">
+                                      <div id="profile-title-wrapper">
+                                        <div id="cvo-profile-avatar-wraper">
+                                          <img id="cvo-profile-avatar" src="/<%=detail.image%>">
+                                        </div>
+                                        <div>
+                                          <span id="cvo-profile-fullname">
+                                            <%=detail.name%>
+                                          </span><br>
+                                        </div>
+                                      </div>
+                                      <div id="profile-contact-wraper">
+                                        <div id="cvo-profile-dob-wraper">
+                                          <i class="fa fa-calendar"></i><span id="cvo-profile-dob">
+                                            <%= moment(detail.birthday).format('DD/MM/YYYY') %>
+                                          </span>
+                                        </div>
+                                        <div id="cvo-profile-gender-wraper"><i class="fa fa-user"></i><span
+                                            id="cvo-profile-gender">
+                                            <% if (detail.gender==1) { %>
+                                              Nam
+                                              <% } else { %>
+                                                Nữ
+                                                <% } %>
+                                          </span>
+                                        </div>
+                                        <div id="cvo-profile-phone-wraper"><i class="fa fa-phone"></i><span
+                                            id="cvo-profile-phone">
+                                            <%=detail.phone%>
+                                          </span></div>
+                                        <div id="cvo-profile-email-wraper"><i class="fa fa-envelope-square"></i><span
+                                            id="cvo-profile-email">
+                                            <%=detail.user.email%>
+                                          </span></div>
+                                        <div id="cvo-profile-address-wraper"><i class="fa fa-map-marker"></i><span
+                                            id="cvo-profile-address">
+                                            <%=detail.address%>
+                                          </span></div>
+                                        <!-- <div id="cvo-profile-gender-wraper"><i class="fa fa-user"></i>
+                                      <span id="cvo-profile-gender">
+                                        <% if (detail.maritalStatus==1) { %>
+                                          Độc thân
+                                        <% } else { %>
+                                          Đã kết hôn
+                                        <% } %>
+                                      </span>
+                                    </div> -->
+                                      </div>
+                                      <div style="clear: both"></div>
+                                    </div>
+                                  </div>
+
+                                  <!-- <div id="group-bottom-left">
+                                <div id="cvo-objective" class="cvo-block">
+                                  <div class="cvo-block-title no-horizontal-line"><span
+                                      id="cvo-objective-blocktitle">Mục tiêu nghề
+                                      nghiệp</span></div>
+                                  <div id="cvo-objective-objective">
+                                    <%- detail.careerGoals %><br>
+                                  </div>
+                                </div>
+                                <div id="cvo-skillrate" class="cvo-block">
+                                  <div class="cvo-block-title"><span id="cvo-skillrate-blocktitle">Kỹ năng</span></div>
+                                  <div id="cvo-objective-objective">
+                                    <%- detail.skill %><br>
+                                  </div>
+                                </div>
+                              </div> -->
+                                </div>
+
+
+                                <div id="col-right">
+                                  <div id="group-col-right">
+                                    <div id="cvo-education" class="cvo-block">
+                                      <div class="cvo-block-title">
+                                        <span><i class="fa fa-graduation-cap"></i></span>
+                                        <span id="cvo-education-blocktitle">Học vấn</span>
+                                      </div>
+                                      <div id="education-table">
+                                        <div class="row ">
+                                          <div class="row-title">
+                                            <div class="cvo-education-school-wraper">
+                                              <span class="cvo-education-school">
+                                                <%= detail.level %>
+                                              </span>
+                                            </div>
+                                            <!-- <div class="cvo-education-time">
+                                          <span class="cvo-education-start">09/2017</span> -
+                                          <span class="cvo-education-end">06/2021</span>
+                                        </div> -->
+                                            <div style="clear:both;"></div>
+                                            <div>
+                                              <!-- <span class="cvo-education-title"></span> -->
+                                            </div>
+                                          </div>
+                                          <div class="row-details">
+                                            <!-- <div class="cvo-education-details">
+                                        </div> -->
+                                          </div>
+                                          <div style="clear:both;"></div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div id="cvo-experience" class="cvo-block">
+                                      <div class="cvo-block-title">
+                                        <span><i class="fa fa-briefcase"></i></span>
+                                        <span id="cvo-experience-blocktitle">Kinh nghiệm làm việc</span>
+                                      </div>
+                                      <div id="experience-table">
+                                        <div class="row ">
+                                          <div class="row-title">
+                                            <div class="cvo-experience-company-wraper">
+                                              <span class="cvo-experience-company">
+                                                <%= detail.experience %>
+                                              </span>
+                                            </div>
+                                            <!-- <div class="cvo-experience-time">
+                                        </div> -->
+                                            <div style="clear:both;"></div>
+                                            <div>
+                                              <!-- <span class="cvo-experience-position">- Kèm các môn cho học sinh Tiểu
+                                            học.</span> -->
+                                            </div>
+                                          </div>
+                                          <div class="row-details">
+                                            <!-- <div class="cvo-experience-details">- Dạy Toán và Hóa cho học sinh cấp 2.<br> -->
+                                          </div>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                      </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                  </div>
+                                  <div id="cvo-certification" class="cvo-block">
+                                    <div class="cvo-block-title"><span><i class="fa fa-file-text-o"></i></span><span
+                                        id="cvo-certification-blocktitle">Kỹ năng</span></div>
+                                    <div id="certification-table">
+                                      <div class="row ">
+                                        <div class="row-title">
+                                          <div class="cvo-activity-organization-wraper">
+                                          </div>
+                                          <div style="clear: both;"></div>
+                                          <div>
+                                            <span class="cvo-activity-position">
+                                              <%- detail.skill %>
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                      </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                  </div>
+                                  <!-- <div id="cvo-activity" class="cvo-block">
+                                  <div class="cvo-block-title">
+                                    <span><i class="fa fa-gratipay"></i></span>
+                                    <span id="cvo-activity-blocktitle">Tình trạng hôn nhân</span>
+                                  </div> -->
+                                  <!-- <div id="education-table">
+                                    <div class="row ">
+                                      <div class="row-title">
+                                        <div class="cvo-education-school-wraper">
+                                          <span class="cvo-education-school">
+                                            <% if (detail.maritalStatus==1) { %>
+                                              Độc thân
+                                            <% } else { %>
+                                              Đã kết hôn
+                                            <% } %>
+                                          </span>
+                                        </div> -->
+                                  <!-- <div class="cvo-education-time">
+                                          <span class="cvo-education-start">09/2017</span> -
+                                          <span class="cvo-education-end">06/2021</span>
+                                        </div> -->
+                                  <!-- <div style="clear:both;"></div>
+                                        <div> -->
+                                  <!-- <span class="cvo-education-title"></span> -->
+                                  <!-- </div>
+                                      </div>
+                                      <div class="row-details"> -->
+                                  <!-- <div class="cvo-education-details">
+                                        </div> -->
+                                  <!-- </div>
+                                      <div style="clear:both;"></div>
+                                    </div>
+                                  </div> -->
+                                  <!-- <div style="clear: both"></div>
+                                </div> -->
+                                  <div id="cvo-activity" class="cvo-block">
+                                    <div class="cvo-block-title">
+                                      <span><i class="fa fa-usd"></i></span>
+                                      <span id="cvo-activity-blocktitle">Mức lương mong muốn</span>
+                                    </div>
+                                    <div id="education-table">
+                                      <div class="row ">
+                                        <div class="row-title">
+                                          <div class="cvo-education-school-wraper">
+                                            <span class="cvo-education-school">
+                                              <%= detail.salary %>
+                                            </span>
+                                          </div>
+                                          <!-- <div class="cvo-education-time">
+                                          <span class="cvo-education-start">09/2017</span> -
+                                          <span class="cvo-education-end">06/2021</span>
+                                        </div> -->
+                                          <div style="clear:both;"></div>
+                                          <div>
+                                            <!-- <span class="cvo-education-title"></span> -->
+                                          </div>
+                                        </div>
+                                        <div class="row-details">
+                                          <!-- <div class="cvo-education-details">
+                                        </div> -->
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                      </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                  </div>
+                                  <div id="cvo-activity" class="cvo-block">
+                                    <div class="cvo-block-title">
+                                      <span><i class="fa fa-graduation-cap"></i></span>
+                                      <span id="cvo-activity-blocktitle">Ngành nghề</span>
+                                    </div>
+                                    <div id="education-table">
+                                      <div class="row ">
+                                        <div class="row-title">
+                                          <div class="cvo-education-school-wraper">
+                                            <span class="cvo-education-school">
+                                              <% for (const item of careers) { %>
+                                                <% if (item.check) { %>
+                                                  <%= item.name %>
+                                                    <% } %>
+                                                      <% } %>
+                                            </span>
+                                          </div>
+                                          <!-- <div class="cvo-education-time">
+                                          <span class="cvo-education-start">09/2017</span> -
+                                          <span class="cvo-education-end">06/2021</span>
+                                        </div> -->
+                                          <div style="clear:both;"></div>
+                                          <div>
+                                            <!-- <span class="cvo-education-title"></span> -->
+                                          </div>
+                                        </div>
+                                        <div class="row-details">
+                                          <!-- <div class="cvo-education-details">
+                                        </div> -->
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                      </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                  </div>
+                                  <div id="cvo-activity" class="cvo-block">
+                                    <div class="cvo-block-title">
+                                      <span><i class="fa fa-map-marker"></i></span>
+                                      <span id="cvo-activity-blocktitle">Địa điểm</span>
+                                    </div>
+                                    <div id="education-table">
+                                      <div class="row ">
+                                        <div class="row-title">
+                                          <div class="cvo-education-school-wraper">
+                                            <span class="cvo-education-school">
+                                              <% for (const item of locations) { %>
+                                                <% if (item.check) { %>
+                                                  <%= item.name %>
+                                                    <% } %>
+                                                      <% } %>
+                                            </span>
+                                          </div>
+                                          <!-- <div class="cvo-education-time">
+                                          <span class="cvo-education-start">09/2017</span> -
+                                          <span class="cvo-education-end">06/2021</span>
+                                        </div> -->
+                                          <div style="clear:both;"></div>
+                                          <div>
+                                            <!-- <span class="cvo-education-title"></span> -->
+                                          </div>
+                                        </div>
+                                        <div class="row-details">
+                                          <!-- <div class="cvo-education-details">
+                                        </div> -->
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                      </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                  </div>
+                                  <div id="cvo-activity" class="cvo-block">
+                                    <div class="cvo-block-title"><span><i class="fa fa-pencil"></i></span><span
+                                        id="cvo-activity-blocktitle">Mục tiêu nghề
+                                        nghiệp</span></div>
+                                    <div id="activity-table">
+                                      <div class="row ">
+                                        <div class="row-title">
+                                          <div class="cvo-activity-organization-wraper">
+                                          </div>
+                                          <div style="clear: both;"></div>
+                                          <div>
+                                            <span class="cvo-activity-position">
+                                              <%- detail.careerGoals %>
+                                            </span>
+                                          </div>
+                                        </div>
+                                        <div class="row-details">
+                                        </div>
+                                        <div style="clear:both;"></div>
+                                      </div>
+                                    </div>
+                                    <div style="clear: both"></div>
+                                  </div>
+                                  <!-- <div id="cvo-certification" class="cvo-block">
+                                  <div class="cvo-block-title"><span><i class="fa fa-file-text-o"></i></span><span
+                                      id="cvo-certification-blocktitle">Kỹ năng</span></div>
+                                  <div id="certification-table">
+                                    <div class="row ">
+                                      <div class="row-title">
+                                        <div class="cvo-activity-organization-wraper">
+                                        </div>
+                                        <div style="clear: both;"></div>
+                                        <div>
+                                          <span class="cvo-activity-position"><%- detail.skill %></span>
+                                        </div>
+                                      </div>
+                                      <div style="clear:both;"></div>
+                                    </div>
+                                  </div>
+                                  <div style="clear: both"></div>
+                                </div> -->
+                                </div>
+                              </div>
+                              <div style="clear: both;"></div>
+                            </div>
+                            <div style="clear: both;"></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+
+</html>
+</div>
+</div>
+</div>
+</div>
+</body>
+
+</html>

@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Python Việt Nam</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+
+    <meta property="og:locale" content="vi_VN" />
+    <meta property="og:locale:alternate" content="en_US" />
+
+    <script>(function (w, d, s, l, i) {
+        w[l] = w[l] || []; w[l].push({
+          'gtm.start':
+            new Date().getTime(), event: 'gtm.js'
+        }); var f = d.getElementsByTagName(s)[0],
+          j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+      })(window, document, 'script', 'dataLayer', 'GTM-5V3NVPX');</script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/css/jquery-ui.min.css?v=1.0.1">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/plugins/select2/css/select2-bootstrap.min.css">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/plugins/datepicker/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/css/app.css?v=1.2.3">
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/css/notification.css?v=1.0.1">
+    <script src="https://tuyendung.topcv.vn/v2/js/jquery-1.11.2.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?hl=vi" async defer></script>
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/css/job.css?v=1.7">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/css/summernote.css">
+    <link rel="stylesheet" href="https://tuyendung.topcv.vn/v2/css/header-sub-menu.css?v=1.1">
+
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-823531084"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'AW-823531084');
+      gtag('config', 'UA-55579411-6');
+    </script>
+    <script type="text/javascript">
+      var trackingQueue = []
+    </script>
+    <script src="https://tuyendung.topcv.vn/v2/js/tracking.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/tracking_handlers.js?v=1.0.1"></script>
+  </head>
+
+  <body>
+
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5V3NVPX" height="0" width="0"
+        style="display:none;visibility:hidden"></iframe></noscript>
+
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/public/topcv/v3/images/logo.png"></a>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="page-create-job">
+      <div class="alert alert-danger" style="display: none">
+      </div>
+      <div class="panel form-job panel-light">
+        <div class="panel-body">
+          <form method="POST">
+            <div class="row">
+              <div class="form-group col-md-12">
+                <label for="name">Tên <span class="text-danger">*</span></label>
+                <div class="help-block text-italic">
+                  Viết ngắn gọn, chính xác vị trí và công việc cần tuyển.
+                  <span class="text-danger">Không sử dụng các từ như [HN], lương cao, tuyển gấp,...</span>
+                </div>
+                <input type="text" class="form-control outline"
+                  placeholder="VD: Nhân Viên Kinh Doanh, Chăm Sóc Khách Hàng, Lập Trình Viên PHP" name="name"
+                  id="jobTitle">
+              </div>
+              <div class="form-group col-md-12">
+                <label for="careerId">Ngành nghề <span class="text-danger">*</span></label>
+                <div class="help-block text-italic">
+                  Lựa chọn tối đã 3 ngành nghề liên quan đến vị trí tuyển dụng này
+                </div>
+                <select class="form-control outline" id="categoryIds" name="careerId" style="width: 100%"
+                  multiple="multiple">
+                  <% career.forEach(cr=> { %>
+                    <option value="<%= cr.id %>">
+                      <%= cr.name %>
+                    </option>
+                    <% }); %>
+                </select>
+              </div>
+              <div class="form-group col-md-12">
+                <label for="address">Địa chỉ làm việc <span class="text-danger">*</span></label>
+                <div class="help-block text-italic">
+                  Ứng viên khi đi làm, sẽ làm việc tại địa chỉ này
+                </div>
+                <input type="text" class="form-control outline" name="address" value="<%= getEmployer.address%>"
+                  disabled>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="locationId">Nơi làm việc <span class="text-danger">*</span></label>
+                <select name="locationId" class="form-control outline" id="cityIds" multiple>
+                  <% location.forEach(el=> { %>
+                    <option value="<%= el.id %>">
+                      <%= el.name %>
+                    </option>
+                    <% }); %>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="quantity">Số lượng cần tuyển <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline" placeholder="0" name="quantity" id="quantity">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="position">Cấp bậc <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline" placeholder="VD: Nhân Viên, Thực tập sinh"
+                  name="position" id="jobTitle">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="workFormat">Loại hình làm việc <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline" placeholder="VD: Toàn thời gian, Bán thời gian"
+                  name="workFormat" id="jobTitle">
+              </div>
+              <div class="form-group col-md-6">
+                <label>Giới tính <span class="text-danger">*</span></label>
+                <select name="gender" class="form-control outline">
+                  <option value="3">Không yêu cầu</option>
+                  <option value="2">Nữ</option>
+                  <option value="1">Nam</option>
+                </select>
+              </div>
+              <div class="form-group col-md-6">
+                <label for="experience">Kinh nghiệm <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline" placeholder="VD: Chưa có kinh nghiệm, Dưới 1 năm, 1 năm"
+                  name="experience" id="experience" value="">
+              </div>
+              <div class="form-group col-md-6">
+                <label for="salary">Lương <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline"
+                  placeholder="VD: Từ 1 triệu, Trong khoảng 8 - 9 triệu, Thỏa thuận" name="salary" id="salary" value="">
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="expirationDate">Hạn chót nộp hồ sơ <span class="text-danger">*</span></label>
+                <input type="text" class="datepicker form-control outline" style="z-index: 1000000"
+                  placeholder="Năm-tháng-ngày" name="expirationDate" id="deadline"
+                  value="<%= moment(getEmployer.expirationDate).format('YYYY-MM-DD'); %>">
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="companyName">Tên người nhận hồ sơ <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline" placeholder="VD: Nguyễn Văn A" name="contactName"
+                  id="companyName" value="<%= getEmployer.companyName %>" disabled>
+              </div>
+              <div class="form-group col-sm-6">
+                <label for="email">Email nhận hồ sơ <span class="text-danger">*</span></label>
+                <input type="email" class="form-control outline" placeholder="VD: abc@gmail.com" name="email" id="email"
+                  value="<%= user.email %>" disabled>
+              </div>
+              <div class="form-group col-xs-6">
+                <label for="phone">Điện thoại <span class="text-danger">*</span></label>
+                <input type="text" class="form-control outline" placeholder="VD: 0123 456 789"
+                  name="phone contact_phone" id="phone" value="<%= getEmployer.phone %>" disabled>
+              </div>
+              <div class="col-xs-12">
+                <hr>
+              </div>
+              <div class="form-group col-md-12">
+                <label for="describe">Mô tả công việc <span class="text-danger">*</span></label>
+                <div class="help-block text-italic">
+                  Mô tả công việc phải làm dựa theo vị trí ứng tuyển
+                </div>
+                <textarea class="describe form-control outline border-radius-0" name="describe" placeholder=""
+                  id="job_description-input"></textarea>
+              </div>
+              <div class="form-group col-md-12">
+                <label for="requestJob">Yêu cầu ứng viên <span class="text-danger">*</span></label>
+                <div class="help-block text-italic">
+                  Các kỹ năng chuyên môn của ứng viên để đáp ứng nhu cầu công việc, các kỹ năng được ưu tiên của ứng
+                  viên... vv
+                </div>
+                <textarea class="requestJob form-control outline" name="requestJob"
+                  id="job_requirement-input"></textarea>
+              </div>
+              <div class="form-group col-md-12">
+                <label for="benefitsEnjoyed">Quyền lợi ứng viên <span class="text-danger">*</span></label>
+                <div class="help-block text-italic">
+                  Các quyền lợi ứng viên được hưởng khi được nhận vào công ty như chế độ đào tạo, bảo hiểm, nghỉ mát,
+                  hoa
+                  hồng.. vv
+                </div>
+                <textarea class="benefitsEnjoyed form-control outline" name="benefitsEnjoyed"
+                  id="job_benefit-input"></textarea>
+              </div>
+              <div class="form-group col-xs-12 text-center">
+                <button type="submit" class="btn btn-primary" id="create">Đăng tin</button>
+                <a href="/dashboard/employer/jobs"><button type="button" class="btn btn-primary">Thoát</button></a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <footer>
+      <div class="bottom-line">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6">
+              © 2021 Bản quyền thuộc về Python Việt Nam
+            </div>
+            <div class="col-md-6">
+              info@pythonvietnam.info
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <script>
+
+      window.globalData = {
+        is_vip: !!0,
+        ajax_request_support_url: 'https://tuyendung.topcv.vn/ajax/request-support',
+        manage_paid_candidate_url: 'https://tuyendung.topcv.vn/ung-vien-da-mo',
+        manage_followed_candidate_url: 'https://tuyendung.topcv.vn/ung-vien-dang-theo-doi',
+      };
+    </script>
+    <script src="https://tuyendung.topcv.vn/v2/js/jquery-ui.min.js?v=1.0.1"></script>
+    <script src="https://tuyendung.topcv.vn/v2/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/axios.min.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/vue.min.js"></script>
+    <script src="https://tuyendung.topcv.vn/plugins/select2/js/select2.full.min.js"></script>
+    <script src="https://tuyendung.topcv.vn/plugins/select2/js/i18n/vi.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/common.js?v=1.0.1"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/feed.js?v=2.0.1"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/app.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/notification.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/topcv-connect.js"></script>
+    <script src="https://tuyendung.topcv.vn/v2/js/input-group-solid.js"></script>
+    <script src="https://tuyendung.topcv.vn/plugins/moment-with-locales.min.js"></script>
+    <script src="https://tuyendung.topcv.vn/plugins/datepicker/js/bootstrap-datepicker.min.js"
+      type="text/javascript"></script>
+    <script src="https://tuyendung.topcv.vn/plugins/datepicker/locales/bootstrap-datepicker.vi.min.js"
+      type="text/javascript"></script>
+    <script src="https://tuyendung.topcv.vn/plugins/summernote/summernote.min.js"></script>
+    <script src="https://tuyendung.topcv.vn/js/job.js?v=1.0.6"></script>
+    <script>
+      $(document).ready(function () {
+        $('.input-group-solid').inputGroupSolid();
+        var date = new Date();
+        date.setDate(date.getDate() + 30);
+
+        var newDay = date.getDate();
+        var newMonth = date.getMonth() + 1;
+        var newYear = date.getFullYear();
+        if (parseInt(newDay) < 10) {
+          newDay = '0' + newDay
+        }
+        if (parseInt(newMonth) < 10) {
+          newMonth = '0' + newMonth
+        }
+        var expireDay = newYear + '-' + newMonth + '-' + newDay;
+        $('input[name=deadline]').val(expireDay);
+
+        if ($('#salary-type').val() == 'nego') {
+          $('#salary-value').hide();
+        }
+        $.fn.select2.defaults.set('theme', 'bootstrap');
+        $('select').select2({
+          language: "vi"
+        }).on('select2:open', function () {
+          $(this).showFormGuideline();
+        });
+        $('#salary-type').change(function () {
+          changeSalaryTypeV2($(this).val());
+        });
+        $('#experience-type').change(function () {
+          changeExperienceType($(this).val());
+        });
+        $('#job_description-input, #job_requirement-input, #job_benefit-input').summernote({
+          disableDragAndDrop: true,
+          height: 200,
+          toolbar: [
+            ['fontstyle', ['fontsize', 'bold', 'italic', 'underline', 'clear']],
+            ['parastyle', ['ol', 'ul', 'paragraph']],
+            ['misc', ['undo', 'redo']]
+          ],
+          fontSizes: ['14', '18', '24'],
+          callbacks: {
+            onPaste: function (e) {
+              var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+              e.preventDefault();
+              bufferText = bufferText.split('\n').filter((para) => {
+                return para != '';
+              }).join('\n');
+              document.execCommand('insertText', false, bufferText);
+            },
+            onFocus: function (e) {
+              $(this).showFormGuideline();
+            }
+          }
+        });
+        $("#jobTitle").autocomplete({
+          source: function (request, response) {
+            var result = $.ui.autocomplete.filter(suggestJobTitles, request.term);
+            response(result.slice(0, 5));
+          }
+        });
+        $('.datepicker').datepicker({
+          autoclose: true,
+          language: 'vi',
+          format: 'yyyy-mm-dd',
+          endDate: '+90d',
+        });
+        $('#categoryIds').select2({
+          placeholder: "Chọn ngành nghề",
+          maximumSelectionLength: 3,
+          language: "vi",
+        });
+        $('#cityIds').select2({
+          placeholder: "Chọn địa điểm",
+          language: "vi"
+        });
+        $('#skillIds').select2({
+          placeholder: "VD: Photoshop, PHP, HTML.. vv",
+          language: "vi",
+          tags: true,
+          tokenSeparators: [","],
+          createTag: function (tag) {
+            return {
+              id: tag.term,
+              text: tag.term,
+              isNew: true
+            };
+          }
+        });
+        // Initialize categories selector
+        $('#children-category-selector').select2('destroy').select2({
+          placeholder: "Chọn nghề"
+        });
+        $('#contact-email-selector').select2({
+          placeholder: "Nhập email cách nhau bởi dấu phẩy",
+          language: "vi",
+          tags: true,
+          tokenSeparators: [',', ' ', ';', '/'],
+          maximumSelectionLength: 5,
+          createTag: function (tag) {
+            return {
+              id: tag.term,
+              text: tag.term,
+              isNew: true
+            };
+          }
+        });
+        $('#job_tag_ids').select2({
+          placeholder: "Chọn nhóm công việc để tiếp cận nhóm ứng viên phù hợp với yêu cầu công việc",
+          language: "vi",
+        });
+
+        $("#job_type_select").change(function (event) {
+          toggleKeyWord();
+        });
+
+        function toggleKeyWord() {
+          let jobType = $("#job_type_select").val();
+          if (jobType == 7) {
+            $('#job-tag-wrap').show();
+          } else {
+            $('#job-tag-wrap').hide();
+          }
+        }
+        toggleKeyWord();
+
+        $('#btn-submit').click(function (event) {
+          event.preventDefault();
+          if (validate()) {
+            $('#form-add-job').submit();
+            $('#btn-submit').prop('disabled', true);
+            return true;
+          }
+          return false;
+        });
+      });
+    </script>
+
+
+    <script>
+      !function (f, b, e, v, n, t, s) {
+        if (f.fbq) return; n = f.fbq = function () {
+          n.callMethod ?
+            n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+        };
+        if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+        n.queue = []; t = b.createElement(e); t.async = !0;
+        t.src = v; s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s)
+      }(window, document, 'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+      fbq('init', '571912357012221');
+      fbq('init', '340337317003281');
+      fbq('init', '303725870644513');
+      fbq('init', '2819838431593615');
+      fbq('init', '233180391698279');
+      fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=571912357012221&ev=PageView&noscript=1" /></noscript>
+
+
+
+    <div id="fb-root"></div>
+    <script>
+      window.fbAsyncInit = function () {
+        FB.init({
+          xfbml: true,
+          version: 'v6.0'
+        });
+      };
+
+      (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
+        fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));</script>
+
+    <div class="fb-customerchat" attribution=setup_tool page_id="1483863348417905" theme_color="#29A45E"
+      logged_in_greeting="Xin chào, TopCV đã sẵn sàng hỗ trợ."
+      logged_out_greeting="Xin chào, TopCV đã sẵn sàng hỗ trợ.">
+    </div>
+    <style>
+      [v-cloak] {
+        display: none;
+      }
+
+      .slide-down {
+        top: 0px !important;
+        display: block !important;
+      }
+
+      .fade-enter-active,
+      .fade-leave-active {
+        transition: opacity .5s;
+      }
+
+      .fade-enter,
+      .fade-leave-to
+
+      /* .fade-leave-active below version 2.1.8 */
+        {
+        opacity: 0;
+      }
+
+      #topcv-popover-container.slide-down #topcv-popover-dialog {
+        width: 500px;
+        -webkit-animation-name: slideDownEnter;
+        -webkit-animation-iteration-count: 1;
+        -webkit-animation-timing-function: ease-out;
+        -webkit-animation-duration: .4s;
+        -webkit-animation-fill-mode: forwards;
+        animation-name: slideDownEnter;
+        animation-iteration-count: 1;
+        animation-timing-function: ease-out;
+        animation-duration: .4s;
+        animation-fill-mode: forwards;
+      }
+
+      @keyframes slideDownEnter {
+        0% {
+          transform: translateY(-150%)
+        }
+
+        to {
+          transform: translateY(0)
+        }
+      }
+
+      @keyframes slideDownExit {
+        0% {
+          transform: translateY(0)
+        }
+
+        to {
+          transform: translateY(-150%)
+        }
+      }
+
+      @keyframes slideUpEnter {
+        0% {
+          transform: translateY(150%)
+        }
+
+        to {
+          transform: translateY(0)
+        }
+      }
+
+      @keyframes slideUpExit {
+        0% {
+          transform: translateY(0)
+        }
+
+        to {
+          transform: translateY(150%)
+        }
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script>
+
+      $(window).click(function () {
+        bellNotification.blur();
+      });
+
+      $('#bell-container').click(function (event) {
+        event.stopPropagation();
+      });
+
+// $(document).ready(function() {
+//     $("#bell-message").hover(function() {
+//         bellNotification.focus();
+//     }, function() {
+//         // bellNotification.blur();
+//     });
+// });
+
+    </script>
+    <script type="text/javascript">
+      $("#create").click(function (e) {
+        e.preventDefault();
+
+        const formData = new FormData();
+        formData.append('name', $('input[name=name]').val());
+        formData.append('locationId', $('select[name=locationId]').val());
+        formData.append('careerId', $('select[name=careerId]').val());
+        formData.append('quantity', $('input[name=quantity]').val());
+        formData.append('position', $('input[name=position]').val());
+        formData.append('workFormat', $('input[name=workFormat]').val());
+        formData.append('gender', $('select[name=gender]').val());
+        formData.append('experience', $('input[name=experience]').val());
+        formData.append('salary', $('input[name=salary]').val());
+        formData.append('expirationDate', $('input[name=expirationDate]').val());
+        formData.append('describe', $('.describe').summernote('code'));
+        formData.append('benefitsEnjoyed', $('.benefitsEnjoyed').summernote('code'));
+        formData.append('requestJob', $('.requestJob').summernote('code'));
+
+        let change = true;
+        if (
+          !formData.get('name') ||
+          !formData.get('locationId') ||
+          !formData.get('careerId') ||
+          !formData.get('quantity') ||
+          !formData.get('position') ||
+          !formData.get('workFormat') ||
+          !formData.get('gender') ||
+          !formData.get('experience') ||
+          !formData.get('salary') ||
+          !formData.get('expirationDate') ||
+          !formData.get('describe') ||
+          !formData.get('benefitsEnjoyed') ||
+          !formData.get('requestJob')
+
+        ) {
+          change = false;
+          swal({
+            type: 'error',
+            title: 'Có lỗi...',
+            text: 'Vui lòng điền đầy đủ thông tin !!!',
+            footer: ''
+          })
+        } if (change) {
+          $.ajax({
+            url: '/dashboard/employer/jobs/create',
+            type: 'POST',
+            data: formData,
+            success: function (data) {
+              if (data) {
+                if (data == true) {
+                  swal("Thành công!", "", "success").then(function () {
+                    location.href = "/dashboard/employer/jobs";
+                  });
+                }
+                else {
+                  swal({
+                    type: 'error',
+                    title: 'Có lỗi...',
+                    text: data,
+                    footer: ''
+                  })
+                }
+
+              }
+              else {
+                swal({
+                  type: 'error',
+                  title: '',
+                  text: 'Có lỗi xảy ra! Vui lòng thử lại',
+                  footer: ''
+                })
+              }
+            },
+            error: (request, status, error) => {
+              swal(request.responseJSON.message, "", "error");
+            },
+            cache: false,
+            contentType: false,
+            processData: false
+          });
+        }
+      });
+    </script>
+  </body>
+
+</html>

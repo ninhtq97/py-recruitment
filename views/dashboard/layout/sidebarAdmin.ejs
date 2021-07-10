@@ -1,0 +1,36 @@
+<nav id="sidebar" class="">
+<ul class="list-unstyled components text-secondary">
+    <li>
+        <a href="/" class="nav-link"><i class="fas fa-home"></i> Trang chủ</a>
+    </li>
+    <li>
+        <a href="/dashboard/admin/employers" class="nav-link"><i class="fa fa-user-md"></i> Nhà tuyển dụng</a>
+    </li>
+    <li>
+        <a href="/dashboard/admin/candidates" class="nav-link"><i class="fas fa-handshake"></i> Ứng viên</a>
+    </li>
+    <li>
+        <a href="/dashboard/admin/locations" class="nav-link"><i class="fa fa-map-marker"></i> Địa điểm</a>
+    </li>
+    <li>
+        <a href="/dashboard/admin/careers" class="nav-link"><i class="fa fa-graduation-cap"></i> Ngành nghề</a>
+    </li>
+    <li>
+        <a href="/dashboard/admin/jobSubmits" class="nav-link"><i class="fas fa-briefcase"></i> Công việc đã ứng tuyển</a>
+    </li>
+    <li>
+        <a href="/auth/logout" class="nav-link"><i class="fas fa-share-square"></i>Đăng Xuất</a>
+    </li>
+</ul>
+</nav>
+
+<script type="text/javascript">
+const currentLocation = location.href;
+const menuItem = document.querySelectorAll('a');
+const menuLength = menuItem.length;
+for(let i=0; i<menuLength; i++) {
+    if(menuItem[i].href === currentLocation) {
+    menuItem[i].className = 'nav-link active';
+    }
+}
+</script>

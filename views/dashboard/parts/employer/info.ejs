@@ -1,0 +1,196 @@
+<% layout('dashboard/masterEmployer') -%>
+<div class="col-lg-12">
+  <div class="card">
+    <div class="card-header" style="
+    color: white">Thông tin doanh nghiệp</div>
+    <div class="card-body">
+      <form method="POST" enctype='multipart/form-data'>
+        <!-- Ảnh -->
+        <div class="form-group">
+            <label for="image">Ảnh*</label>
+            <div class="input-group">
+              <span class="input-group-btn">
+                <span class="btn btn-default btn-file" style="position: relative; overflow: hidden;">
+                  <i class="fas fa-upload"></i>
+                  <input
+                  value="<%=detail.image%>"
+                  name="image"
+                  type="file" 
+                  id="image"
+                  style="
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    min-width: 100%;
+                    min-height: 100%;
+                    font-size: 100px;
+                    text-align: right;
+                    filter: alpha(opacity=0);
+                    opacity: 0;
+                    outline: none;
+                    background: white;
+                    cursor: inherit;
+                    display: block;
+                  "
+                  >
+                </span>
+              </span>
+              <!-- <input type="text" class="form-control" readonly> -->
+            </div>
+            <img id='img-upload' src="/<%=detail.image%>" value="<%=detail.image%>" style="width: 30%;" />
+        </div>
+        <div class="form-group">
+          <label for="companyName">Tên Công ty*</label>
+          <input type="text" name="companyName" value="<%=detail.companyName%>" class="form-control"  style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="code">Mã số thuế*</label>
+          <input type="text" name="code" value="<%=detail.code%>" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="dateRange">Ngày cấp*</label>
+          <input type="date" name="dateRange" value="<%= moment(detail.dateRange).format('YYYY-MM-DD'); %>" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="issuedBy">Nơi cấp*</label>
+          <input type="text" name="issuedBy" value="<%=detail.issuedBy%>" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="form-group">
+          <label for="address">Địa chỉ liên hệ*</label>
+          <input type="text" name="address" value="<%=detail.address%>" class="form-control" style="width: 50%;"required>
+        </div>
+        <div class="form-group">
+          <label for="phone">SĐT liên hệ*</label>
+          <input type="text" name="phone" value="<%=detail.phone%>" class="form-control" style="width: 50%;" required>
+        </div>
+        <div class="row" style="justify-content: center; margin-top: 2em;">
+            <button id="update" type="submit" class="btn btn-primary mb-2" style="margin-right: 1em;">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#update").click(function(e) {
+    e.preventDefault();
+
+    const formData = new FormData();
+    formData.append('image', '<%=detail.image%>');
+
+    if($('input[type=file]')[0].files[0]) {
+      formData.set('image', $('input[type=file]')[0].files[0]);
+    }
+
+    formData.append('companyName', $('input[name=companyName]').val());
+    formData.append('code', $('input[name=code]').val());
+    formData.append('dateRange', $('input[name=dateRange]').val());
+    formData.append('issuedBy', $('input[name=issuedBy]').val());
+    formData.append('address', $('input[name=address]').val());
+    formData.append('phone', $('input[name=phone]').val());
+
+    let change = true;
+    if(
+      !formData.get('companyName') ||
+      !formData.get('code') ||
+      !formData.get('dateRange') ||
+      !formData.get('issuedBy') ||
+      !formData.get('address') ||
+      !formData.get('phone')
+    ){
+      change = false;
+      swal({
+            type: 'error',
+            title: 'Có lỗi...',
+            text: 'Vui lòng điền đầy đủ thông tin !!!',
+            footer: ''
+          })
+    } if(change){
+      $.ajax({
+          url: '/dashboard/employer/info',
+          type: 'POST',
+          data: formData,
+          success: function (data) {
+            if (data) {
+              if(data == true){
+                swal("Thành công!", "", "success").then(function() {
+                  location.href = "/dashboard/employer/info";
+                });
+              }
+              else{
+                swal({
+                type: 'error',
+                title: 'Có lỗi...',
+                text: data,
+                footer: ''
+              })
+              }
+            
+            }
+            else {
+              swal({
+                type: 'error',
+                title: '',
+                text: 'Có lỗi xảy ra! Vui lòng thử lại',
+                footer: ''
+              })
+            }
+          },
+          error: (request, status, error) => {
+            swal(request.responseJSON.message, "", "error");
+          },
+          cache: false,
+          contentType: false,
+          processData: false
+      });
+    }
+  });
+
+  $(function () {
+    $('input[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+
+  $(function () {
+    $('textarea[type="text"]').change(function () {
+        this.value = $.trim(this.value);
+    });
+  });
+
+  $(document).ready( function() {
+    $(document).on('change', '.btn-file :file', function() {
+      let input = $(this),
+        label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+      input.trigger('fileselect', [label]);
+		});
+
+		$('.btn-file :file').on('fileselect', function(event, label) {
+		    
+		    let input = $(this).parents('.input-group').find(':text'),
+		        log = label;
+		    
+		    if( input.length ) {
+		        input.val(log);
+		    } else {
+		        if( log ) return true;
+		    }
+	    
+		});
+		function readURL(input) {
+		    if (input.files && input.files[0]) {
+		        let reader = new FileReader();
+		        
+		        reader.onload = function (e) {
+		            $('#img-upload').attr('src', e.target.result);
+		        }
+		        
+		        reader.readAsDataURL(input.files[0]);
+		    }
+		}
+
+		$("#image").change(function(){
+		    readURL(this);
+		}); 	
+	});
+</script>

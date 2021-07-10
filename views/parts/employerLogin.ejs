@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="ZoxKtL6KJbDMbn9aila9to32ANKEbskzgrZkDaxU">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Python Việt Nam</title>
+    <link rel="stylesheet" href="/topcv/v2/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/topcv/v2/css/jquery-ui.min.css?v=1.0.1">
+    <link rel="stylesheet" href="/topcv/v2/css/app.css?v=1.2.3">
+    <style>
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+    </style>
+    <script src="/topcv/v2/js/jquery-1.11.2.min.js"></script>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+              aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/"><img src="/topcv/v3/images/logo.png"></a>
+          </div>
+          <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/">Trang chủ</a></li>
+              <li class="active"><a href="/auth/employer-login">Đăng nhập</a></li>
+              <li><a href="/auth/register/employer">Đăng ký</a></li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container" id="page-login">
+      <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+          <div class="panel panel-default">
+            <div class="panel-heading">Đăng nhập</div>
+            <div class="panel-body">
+              <div class="alert alert-danger" style="display: none">
+              </div>
+              <form action="" method="POST">
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" placeholder="Email" autofocus="" required>
+                </div>
+                <div class="form-group">
+                  <input type="password" class="form-control" name="password" placeholder="Mật khẩu" required>
+                </div>
+                <div class="form-group">
+                  <button type="submit" class="btn btn-primary" id="login">Đăng nhập</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script type="text/javascript">
+      $(function () {
+        $('#login').click(function (e) {
+          e.preventDefault()
+          const email = $('input[name=email]').val();
+          const password = $('input[name=password]').val();
+          const role = '<%= role %>';
+          let change = true;
+          if (!email || !password) {
+            change = false;
+            swal('Vui lòng nhập đầy đủ', "", "error")
+          }
+          if (change) {
+            const data = { email: email, password: password, role: role };
+            $.ajax({
+              type: 'POST',
+              data: data,
+              url: '/auth/employer-login',
+              success: function (data) {
+                if (data == true) {
+                  location.href = '/dashboard/employer/info'
+                }
+                else {
+                  swal(data, "", "error").then(function () {
+                    location.href = "/auth/employer-login";
+                  });
+                }
+              },
+              error: (request, status, error) => {
+                swal(request.responseJSON.message, "", "error");
+              },
+            });
+          }
+        });
+      });
+    </script>
+
+
+  </body>
+
+</html>
